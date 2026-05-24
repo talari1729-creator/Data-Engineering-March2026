@@ -1,0 +1,220 @@
+-- 1.Employees earning more than average salary
+-- select emp_name,salary
+-- from employees
+-- where salary >(select avg(salary)from employees);
+
+
+-- 2.second highest salary
+-- select max(salary) as second_high_sal
+-- from employees
+-- where salary<(select max(salary) from employees);
+
+
+-- 3.employees in IT department
+-- select emp_name
+-- from employees
+-- where dept_id=(select dept_id from departments where dept_name='IT');
+
+
+-- 4.employees with salary greater than hr employees
+-- select emp_name
+-- from employees
+-- where salary>(select salary from employees where dept_id=30);
+
+
+-- 5.employees who are managers
+-- select emp_name 
+-- from employees
+-- where emp_id=(select dept_id from departments where dept_name='managers');
+
+
+-- 6.departments having more than 5 employees
+-- SELECT dept_id
+-- FROM Employees
+-- group by dept_id
+-- having count(*)>5;
+
+
+-- 7.enployees without departments
+-- select emp_name
+-- from employees
+-- where dept_id is null;
+
+
+-- 8.dept_avg > overall salary from employees
+-- select dept_id
+-- from employees
+-- group by dept_id
+-- having avg(salary) > (select avg(salary) from employees);
+
+
+-- - 🔥 INLINE VIEW ANSWERS
+-- 9. Dept-wise avg salary (inline)
+-- select dept_id,avg_salary
+-- from(select dept_id,
+-- avg(salary)as avg_salary
+-- from employees 
+-- group by dept_id);
+
+
+
+-- 10. Employees > dept avg (inline)
+-- select emp_name
+-- from employees e 
+-- join (
+--     select dept_id,avg(salary)as avg_salary
+--     from employees group by dept_id
+-- )d 
+-- on e.dept_id=d.dept_id
+-- where e.salary > d.avg_sal;
+
+
+-- 11.top 5 salaries
+
+-- select * from (
+--     select emp_name,salary
+--     from employees 
+--     order by salary desc
+-- )
+-- fetch first 5 rows only;
+
+-- 🔥 CORRELATED SUBQUERY ANSWERS
+
+
+-- 12. Employees > dept avg
+-- select emp_name 
+-- from employees e1
+-- where salary >(
+--     select avg(salary)
+--     from employees e2 
+--     where e1.dept_id=e2.dept_id
+-- );
+
+
+-- 13.highest salary per Dept
+-- select emp_name,dept_id
+-- from employees e1
+-- where salary=(select max(salary)
+-- from employees e2 
+-- where e1.dept_id=e2.dept_id
+-- );
+
+-- 14. Employees without subordinates
+-- SELECT emp_name
+-- FROM Employees e1
+-- WHERE NOT EXISTS (
+--     SELECT 1 FROM Employees e2
+--     WHERE e2.manager_id = e1.emp_id
+-- );
+
+-- 15.emp salary = dept manager_id
+-- select emp_name,salary
+-- from employees e1 
+-- where salary = (select min(salary)
+-- from employees e2
+-- where e2.dept_id=e1.dept_id);
+
+-- 16.customers with orders
+-- select customer_name
+-- from customer c 
+-- where exists(select 1
+-- from orders o
+-- where o.customer_id=c.customer_id
+-- );
+
+
+-- 17.customers without orders
+
+-- select customer_name
+-- from customers c 
+-- where not exists(select 1
+-- from orders o
+-- where o.customer_id=c.customer_id
+-- );
+
+-- select * from customer;
+
+
+-- - 🔥 CTE ANSWERS
+
+-- 18.dept total salary
+
+-- with dept_total as(
+--     select dept_id,sum(salary) as total_salary
+--     from employees
+--     group by dept_id
+-- )
+-- select * from dept_total;
+
+-- 19.ranked employees
+
+-- with ranked_emp as (
+--     select emp_name,salary,
+--     rank()over(order by salary desc)as rnk from employees
+-- )
+-- select * from ranked_emp;
+
+-- 20.top 3 dept wise (salary)
+-- with top_3 as (
+--     select emp_name,salary,dept_id,
+--     dense_rank()over(partition by dept_id order by salary desc) as drnk from employees
+-- )
+-- select * from top_3
+-- where drnk<=3;
+
+-- 21.remove duplicates
+
+-- with remove_dup as (
+--     select * FROM
+--     row_number()over(partition by dept_id order by emp_name) as rn from employees
+-- )
+-- select * from remove_dup
+-- where rn>1;
+
+--22.running total.
+-- with total_run as (
+--     select emp_name,dept_id,
+--     sum(salary over(order by dept_id)as total_sal from employees
+-- )
+-- select * from total_run;
+
+-- 🔥 2-LEVEL CTE (VERY IMPORTANT)
+
+-- 23. Dept avg → filter employees
+-- with dept_avg as (
+--     select dept_id,avg(salary)as avg_salary
+--     from employees 
+--     group by dept_id
+-- ),
+-- filter as (
+--     select e.emp_name,e.salary
+--     from employees e 
+--     join dept_avg d 
+--     on e.dept_id=d.dept_id
+--     where e.salary>d.avg_salary
+-- )
+-- select * from filter;
+
+
+-- 24. Rank → filter top 3
+
+-- with ranked as (
+--     select emp_name,salary,
+--     dense_rank()over(order by salary desc)as rnk from employees
+-- ),
+-- top_3 as(
+--     select * from ranked where rnk<=3
+-- )
+-- select * from top_3;
+
+-- 25. Sales aggregation → ranking
+-- WITH sales_cte AS (
+--     SELECT region, SUM(amount) total
+--     FROM Sales GROUP BY region
+-- ),
+-- ranked AS (
+--     SELECT region, total,
+--            RANK() OVER (ORDER BY total DESC) rnk
+--     FROM sales_cte
+-- )
+-- SELECT * FROM ranked;

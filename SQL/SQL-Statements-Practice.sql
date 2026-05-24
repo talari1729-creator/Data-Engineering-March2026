@@ -1,0 +1,249 @@
+-- (1) simple if
+-- declare 
+-- v_num number:=5;
+-- begin 
+--     if v_num >=5then 
+--     dbms_output.put_line('greater then 5');
+--     end if;
+-- end;
+-- /
+
+
+-- (2)if else
+-- declare 
+-- v_num number:=5;
+-- begin 
+--     if v_num >5 then
+--     dbms_output.put_line('greater');
+--     else 
+--     dbms_output.put_line('smaller');
+--     end if;
+-- end;
+-- /
+
+-- (3) if elsif else
+-- declare 
+-- v_num number:=5;
+-- begin 
+--     if v_num >5 then 
+--     dbms_output.put_line('greater');
+--     elsif v_num =5 then 
+--     dbms_output.put_line('equal');
+--     else
+--     dbms_output,put_line('smaller');
+--     end if;
+-- end;
+-- /
+
+-- (4) even/odd
+-- declare 
+-- v_num number :=5;
+-- begin 
+--     if mod(v_num,2)=0 then 
+--     dbms_output.put_line('even');
+--     else
+--     dbms_output.put_line('odd');
+--     end if;
+-- end;
+-- /
+
+-- (5) check salary
+-- declare 
+-- salary number :=5000;
+-- begin 
+--     if salary >4000 then
+--     dbms_output.put_line('high salalry');
+--     end if;
+-- end;
+-- /
+
+-- (6)gread
+
+-- declare
+-- marks number:=75;
+-- begin
+--     if marks>=90 then 
+--     dbms_output.put_line('A');
+--     elsif marks >=80 then 
+--     dbms_output.put_line('B');
+--     else
+--     dbms_output.put_line('C');
+--     end if;
+-- end;
+-- /
+
+-- (7)null check
+-- declare
+-- names varchar(23):='raajan';
+-- begin
+--     if names is null then
+--     dbms_output.put_line('is null');
+--     else
+--     dbms_output.put_line(names);
+--     end if;
+-- end;
+-- /
+
+-- (8) login check
+-- declare
+-- admin varchar(24);='raajan';
+-- begin
+--     if admin='raajan'then
+--     dbms_output.put_line('welcome admin');
+--     else
+--     dbms_output.put_line('admin denin');
+--     end if;
+-- end;
+-- /
+
+-- (9)nested if
+-- declare
+-- v_num number:=5;
+-- begin
+--     if v_num > 1 then 
+--     if v_num <10 then 
+--     dbms_output.put_line('num between 1 to 15');
+--     end if;
+--     end if;
+-- end;
+-- /   
+
+
+-- (10) bonus  eligibility
+-- declare 
+-- salary1 number:=30000;
+-- begin
+--     if salary1>25000 then
+--     dbms_output.put_line('you are eligibikity for bonus');
+--     else
+--     dbms_ouput.put_line('not eligibilty');
+--     end if;
+-- end;
+-- /
+
+-- (11) age category
+-- declare
+-- age number:=18;
+-- begin 
+--     if age<18 then 
+--     dbms_output.put_line('minor');
+--     elsif age between 18 and 60 then
+--     dbms_output.put_line('adult');
+--     else
+--     dbms_output.put_line('senior');
+--     end if;
+-- end;
+-- /
+
+
+-- (12) character check
+-- declare
+-- ch char:='A';
+-- begin
+--     if ch between 'A' AND 'Z' then
+--     dbms_output.put_line('uppercase');
+--     else
+--     dbms_output.put_line('not uppercase');
+--     end if;
+-- end;
+-- /
+
+-- (13) division check
+-- declare
+-- a number:=10;
+-- b number:=0;
+-- begin 
+--     if b=0 then
+--     dbms_output.put_line('cant divide');
+--     else
+--     dbms_output.put_line('result|| a/b');
+--     end if;
+-- end;
+-- /
+
+-- (14) discount
+-- declare
+-- price number:=1200;
+-- begin
+--     if price >1000 then 
+--     dbms_output.put_line(' 10% discount');
+--     end if;
+-- end;
+-- /
+
+-- (15) and conditon
+-- declare
+-- age number :=18;
+-- salary number :=30000;
+-- begin
+--     if age <21 and salary >30000 then 
+--     dbms_output.put_line('eligible');
+--     end if;
+-- end;
+-- /    
+
+-- (16) or condition 
+-- declare 
+-- role_ varchar(25):='manager';
+-- begin
+--     if role_='admin' or role_='manager' then 
+--     dbms_output.put_line('access granted');
+--     end if;
+-- end;
+-- /
+
+-- (17) not condition 
+--  declare 
+--  money number :=15000;
+--  begin 
+--     if not money=15000 then                #3 in true cases
+--     dbms_output.put_line('user in actve');
+--     end if;
+-- end;
+-- /
+
+--  declare 
+--  money number :=15000;
+--  begin 
+--     if not money!=15000 then             ## in false cases
+--     dbms_output.put_line('user in actve');
+--     end if;
+-- end;
+-- /
+
+-- (18) date check
+-- declare 
+-- today date:=sysdate;
+-- begin
+--     if today= TRUNC(today) then
+--     dbms_output.put_line('today date');
+--     end if ;
+-- end;
+-- /
+
+-- (19) check numbers
+-- declare 
+-- ABC number:=2
+-- CBA number:=3
+-- begin
+--     if ABC > CBA then 
+--     dbms_output.put_line('greater');
+--     else
+--     dbms_output,put_line('smaller');
+--     end if ;
+-- end;
+-- /
+
+-- (20) dept check
+-- declare
+-- dept varchar (23):='it';
+-- begin
+--     if dept='hr' then 
+--     dbms_output.put_line('dept is hr');
+--     elsif dept='it' then
+--     dbms_output.put_line('dept is it');
+--     else
+--     dbms_output.put_line('OTHERS');
+--     END IF;
+-- END;
+-- /
